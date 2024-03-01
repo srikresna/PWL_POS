@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StokSeeder extends Seeder
 {
@@ -25,5 +26,7 @@ class StokSeeder extends Seeder
             ['stok_id' => 9, 'barang_id' => 9, 'user_id' => 1, 'stok_tanggal' => '2021-01-01', 'stok_jumlah' => 100],
             ['stok_id' => 10, 'barang_id' => 10, 'user_id' => 1, 'stok_tanggal' => '2021-01-01', 'stok_jumlah' => 100],
         ];
+
+        DB::table('t_stok')->insert($data);
     }
 }

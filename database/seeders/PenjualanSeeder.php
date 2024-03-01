@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PenjualanSeeder extends Seeder
 {
@@ -25,5 +26,7 @@ class PenjualanSeeder extends Seeder
             ['penjualan_id' => 9, 'user_id' => 1, 'pembeli' => 'Budi', 'penjualan_kode' => 'JL009', 'penjualan_tanggal' => '2021-01-01'],
             ['penjualan_id' => 10, 'user_id' => 1, 'pembeli' => 'Ani', 'penjualan_kode' => 'JL010', 'penjualan_tanggal' => '2021-01-01'],
         ];
+
+        DB::table('t_penjualan')->insert($data);
     }
 }
