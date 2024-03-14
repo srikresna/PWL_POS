@@ -50,7 +50,8 @@ class UserController extends Controller
         //     abort(404);
         // });
         // $user = UserModel::findOrFail(1); // ambil data user dengan user_id = 1, jika tidak ada data maka tampilkan error 404
-        $user = UserModel::where('username', 'manager9')->firstOrFail(); // ambil data user dengan username = manager9, jika tidak ada data maka tampilkan error 404
+        // $user = UserModel::where('username', 'manager9')->firstOrFail(); // ambil data user dengan username = manager9, jika tidak ada data maka tampilkan error 404
+        $user = UserModel::where('level_id', 2)->count();
         return view('user', ['data' => $user]);
     }
 }
