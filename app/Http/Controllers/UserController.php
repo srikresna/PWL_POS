@@ -39,7 +39,7 @@ class UserController extends Controller
         // UserModel::create($data); // tambahkan data ke tabel m_user
 
         // coba akses model UserModel
-        $user = UserModel::all(); // ambil semua data dari tabel m_user
+        // $user = UserModel::all(); // ambil semua data dari tabel m_user
         // $user = UserModel::find(1); // ambil data user dengan user_id = 1
         // $user = UserModel::where('level_id', 1)->first(); // ambil data user dengan level_id = 1
         // $user = UserModel::firstWhere('level_id', 1); // ambil data user dengan level_id = 1
@@ -114,7 +114,9 @@ class UserController extends Controller
         // $user->wasChanged('username'); // cek apakah ada perubahan data pada kolom username, return true
         // $user->wasChanged('nama'); // cek apakah ada perubahan data pada kolom nama, return false
         // dd($user->wasChanged(['nama', 'username'])); // cek apakah ada perubahan data pada kolom nama dan username, return true
-
+        
+        $user = UserModel::with('level')->get(); // ambil semua data user dengan relasi level
+        // dd($user);
         return view('user', ['data' => $user]);
     }
 
