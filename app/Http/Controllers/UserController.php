@@ -39,7 +39,7 @@ class UserController extends Controller
         // UserModel::create($data); // tambahkan data ke tabel m_user
 
         // coba akses model UserModel
-        // $user = UserModel::all(); // ambil semua data dari tabel m_user
+        $user = UserModel::all(); // ambil semua data dari tabel m_user
         // $user = UserModel::find(1); // ambil data user dengan user_id = 1
         // $user = UserModel::where('level_id', 1)->first(); // ambil data user dengan level_id = 1
         // $user = UserModel::firstWhere('level_id', 1); // ambil data user dengan level_id = 1
@@ -100,21 +100,61 @@ class UserController extends Controller
         // $user->isClean(); // cek apakah tidak ada perubahan data, return true
         // dd($user->getDirty()); // ambil data perubahan, return array kosong
 
-        $user = UserModel::create([
-            'username' => 'manager11',
-            'nama' => 'Manager11',
-            'password' => Hash::make('12345'),
-            'level_id' => 2
-        ]);
+        // $user = UserModel::create([
+        //     'username' => 'manager11',
+        //     'nama' => 'Manager11',
+        //     'password' => Hash::make('12345'),
+        //     'level_id' => 2
+        // ]);
 
-        $user->username = 'manager12';
-        $user->save();
+        // $user->username = 'manager12';
+        // $user->save();
 
-        $user->wasChanged(); // cek apakah ada perubahan data, return true
-        $user->wasChanged('username'); // cek apakah ada perubahan data pada kolom username, return true
-        $user->wasChanged('nama'); // cek apakah ada perubahan data pada kolom nama, return false
-        dd($user->wasChanged(['nama', 'username'])); // cek apakah ada perubahan data pada kolom nama dan username, return true
+        // $user->wasChanged(); // cek apakah ada perubahan data, return true
+        // $user->wasChanged('username'); // cek apakah ada perubahan data pada kolom username, return true
+        // $user->wasChanged('nama'); // cek apakah ada perubahan data pada kolom nama, return false
+        // dd($user->wasChanged(['nama', 'username'])); // cek apakah ada perubahan data pada kolom nama dan username, return true
 
         return view('user', ['data' => $user]);
+    }
+
+    public function tambah()
+    {
+        return view('user_tambah');
+    }
+
+    public function tambah_simpan(Request $request)
+    {
+        UserModel::create([
+            'username' => $request->username,
+            'nama'=> $request->nama,
+            'password' => Hash::make($request->password),
+            'level_id' => $request->level_id
+        ]);
+        return redirect('/user');
+    }
+
+    public function ubah($id)
+    {  
+        $user = UserModel::find($id);
+        return view('user_ubah', ['data' => $user]);
+    }
+
+    public function ubah_simpan($id, Request $request) {
+        $user = UserModel::find($id);
+
+        $user->username = $request->username;
+        $user->nama = $request->nama;
+        $user->level_id = $request->level_id;
+
+        $user->save();
+        return redirect('/user');
+    }
+
+    public function hapus($id)
+    {
+        $user = UserModel::find($id);
+        $user->delete();
+        return redirect('/user');
     }
 }
