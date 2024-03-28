@@ -35,3 +35,6 @@ Route::post('/kategori', [KategoriController::class, 'store']);
 Route::get('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 Route::put('/kategori/update_save/{id}', [KategoriController::class, 'update_save'])->name('kategori.update_save');
 Route::get('/kategori/delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
+Route::get('/general', function () {
+    return view('general');
+});
