@@ -39,6 +39,9 @@ class LevelController extends Controller
 
         $validated = $request->safe()->only(['level_kode', 'level_nama']);
         $validated = $request->safe()->except(['level_kode', 'level_nama']);
+        
+        LevelModel::create($validated);
+
         return redirect('/level');
     }
 

@@ -151,6 +151,8 @@ class UserController extends Controller
             'level_id'
         ]);
 
+        UserModel::create($validated);
+
         return redirect('/user');
     }
 
