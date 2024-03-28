@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
 use App\DataTables\KategoriDataTable;
 use App\Models\KategoriModel;
+use Illuminate\Contracts\View\View;
 
 class KategoriController extends Controller
 {
@@ -14,19 +15,47 @@ class KategoriController extends Controller
         return $dataTable->render('kategori.index');
     }
 
-    public function create()
+    // Show the form to create a new post
+    public function create(): View
     {
         return view('kategori.create');
     }
 
-    public function  store(Request $request)
+
+    // Store a new post
+    public function store(Request $request): RedirectResponse
     {
-        KategoriModel::create([
-            'kategori_kode' => $request->kodeKategori,
-            'kategori_nama' => $request->namaKategori
+        // To do so, assign a bail rule to the attribute: try adjusting it to the field on the m_kategori. What happened?
+        $validated = $request->validateWithBag('category', [
+            'kategori_kode' => 'bail|required|unique:m_kategori|max:255', // 'bail' stops validation on the first failure
+            'kategori_nama' => 'required',
         ]);
+        // ANSWER : The validation will stop on the first failure, so if the kategori_kode is not unique, the validation will stop and the error message will be displayed.
+        // 5.	Write the difference in using validate with validateWithBag!
+        // ANSWER : validateWithBag will store the error message in the session, so it can be displayed in the view. While validate will return the error message in the response.
+        // The post is valid...
+
+        KategoriModel::create([
+            'kategori_kode' => $validated['kategori_kode'],
+            'kategori_nama' => $validated['kategori_nama']
+        ]);
+
         return redirect('/kategori');
     }
+
+    // public function create()
+    // {
+    //     return view('kategori.create');
+    // }
+
+    // public function  store(Request $request)
+    // {
+    //     KategoriModel::create([
+    //         'kategori_kode' => $request->kodeKategori,
+    //         'kategori_nama' => $request->namaKategori
+    //     ]);
+    //     return redirect('/kategori');
+    // }
 
     public function update($id)
     {
