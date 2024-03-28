@@ -3,6 +3,7 @@
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\POSController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,5 @@ Route::get('/general', function () {
 });
 Route::get('/level/tambah', [LevelController::class, 'tambah'])->name('/level/tambah');
 Route::post('/level/tambah_simpan', [LevelController::class, 'tambah_simpan'])->name('/level/tambah_simpan');
+
+Route::resource('m_user', POSController::class);
