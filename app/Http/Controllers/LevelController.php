@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,4 +22,18 @@ class LevelController extends Controller
         $data = DB::select('select * from m_level');
         return view('level', ['data' => $data]);
     }
+
+    public function tambah() {
+        return view('level_tambah');
+    }
+
+    public function tambah_simpan(Request $request) {
+        LevelModel::create([
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request->level_nama,
+        ]);
+
+        return redirect('/level');
+    }
+
 }

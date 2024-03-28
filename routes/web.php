@@ -35,6 +35,9 @@ Route::post('/kategori', [KategoriController::class, 'store']);
 Route::get('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 Route::put('/kategori/update_save/{id}', [KategoriController::class, 'update_save'])->name('kategori.update_save');
 Route::get('/kategori/delete/{id}', [KategoriController::class, 'delete'])->name('kategori.delete');
+
 Route::get('/general', function () {
     return view('general');
 });
+Route::get('/level/tambah', [LevelController::class, 'tambah'])->name('/level/tambah');
+Route::post('/level/tambah_simpan', [LevelController::class, 'tambah_simpan'])->name('/level/tambah_simpan');
