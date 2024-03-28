@@ -5,6 +5,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
 use App\DataTables\KategoriDataTable;
+use App\Http\Requests\StorePostRequest;
 use App\Models\KategoriModel;
 use Illuminate\Contracts\View\View;
 
@@ -23,22 +24,35 @@ class KategoriController extends Controller
 
 
     // Store a new post
-    public function store(Request $request): RedirectResponse
+    public function store(StorePostRequest $request): RedirectResponse
     {
+
         // To do so, assign a bail rule to the attribute: try adjusting it to the field on the m_kategori. What happened?
-        $validated = $request->validateWithBag('category', [
-            'kategori_kode' => 'bail|required|unique:m_kategori|max:255', // 'bail' stops validation on the first failure
-            'kategori_nama' => 'required',
-        ]);
+        // $validated = $request->validateWithBag('category', [
+        //     'kategori_kode' => 'bail|required|unique:m_kategori|max:255', // 'bail' stops validation on the first failure
+        //     'kategori_nama' => 'required',
+        // ]);
         // ANSWER : The validation will stop on the first failure, so if the kategori_kode is not unique, the validation will stop and the error message will be displayed.
         // 5.	Write the difference in using validate with validateWithBag!
         // ANSWER : validateWithBag will store the error message in the session, so it can be displayed in the view. While validate will return the error message in the response.
         // The post is valid...
 
-        KategoriModel::create([
-            'kategori_kode' => $validated['kategori_kode'],
-            'kategori_nama' => $validated['kategori_nama']
+        $validated = $request->validated();
+        
+        $validated = $request->safe()->only([
+            'kategori_kode',
+            'kategori_nama'
         ]);
+        $validated = $request->safe()->except([
+            'kategori_kode',
+            'kategori_nama'
+        ]);
+
+
+        // KategoriModel::create([
+        //     'kategori_kode' => $validated['kategori_kode'],
+        //     'kategori_nama' => $validated['kategori_nama']
+        // ]);
 
         return redirect('/kategori');
     }
