@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/level', [LevelController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'list']);
 Route::get('/user/tambah', [UserController::class, 'tambah'])->name('/user/tambah');
 Route::get('/user/ubah/{id}', [UserController::class, 'ubah'])->name('/user/ubah');
 Route::get('/user/hapus/{id}', [UserController::class, 'hapus'])->name('/user/hapus');
@@ -47,3 +47,14 @@ Route::post('/level/tambah_simpan', [LevelController::class, 'tambah_simpan'])->
 Route::resource('m_user', POSController::class);
 
 Route::get('/', [WelcomeController::class, 'index']);
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);              // menampilkan halaman awal user
+    Route::post('/list', [UserController::class, 'list']);          // menampilkan data user dalam bentuk jeson untuk datatables
+    Route::get('/create', [UserController::class, 'create']);       // menampilkan halaman form tambah user
+    Route::post('/', [UserController::class, 'store']);             // menyimpan data use baru
+    Route::get('/{id}', [UserController::class, 'show']);           // menampilkan detail user
+    Route::get('/{id}/edit', [UserController::class, 'edit']);      // menampilkan halaman form edit user
+    Route::put('/{id}', [UserController::class, 'update']);         // menyimpan perubahan data user
+    Route::delete('/{id}', [UserController::class, 'destroy']);     // menghapus data user
+});
