@@ -7,6 +7,7 @@ use App\Http\Controllers\POSController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\PenjualanController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -106,4 +107,16 @@ Route::group(['prefix' => 'stok'], function() {
     Route::get('/{id}/edit', [StockController::class, 'edit']);
     Route::put('/{id}', [StockController::class, 'update']);
     Route::delete('/{id}', [StockController::class, 'destroy']);
+});
+
+// Detail Route
+Route::group(['prefix' => 'penjualan'], function() {
+    Route::get('/', [PenjualanController::class, 'index']);
+    Route::post('/list', [PenjualanController::class, 'list']);
+    Route::get('/create', [PenjualanController::class, 'create']);
+    Route::post('/', [PenjualanController::class, 'store']);
+    Route::get('/{id}', [PenjualanController::class, 'show']);
+    Route::get('/{id}/edit', [PenjualanController::class, 'edit']);
+    Route::put('/{id}', [PenjualanController::class, 'update']);
+    Route::delete('/{id}', [PenjualanController::class, 'destroy']);
 });

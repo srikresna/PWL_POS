@@ -24,4 +24,9 @@ class UserModel extends Model
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }
+
+    public function penjualan()
+    {
+        return $this->hasMany(PenjualanModel::class, 'user_id', 'user_id');
+    }
 }
