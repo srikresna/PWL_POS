@@ -5,6 +5,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -57,4 +59,51 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/{id}/edit', [UserController::class, 'edit']);      // menampilkan halaman form edit user
     Route::put('/{id}', [UserController::class, 'update']);         // menyimpan perubahan data user
     Route::delete('/{id}', [UserController::class, 'destroy']);     // menghapus data user
+});
+
+Route::group(['prefix' => 'level'], function() {
+    Route::get('/', [LevelController::class, 'index']);
+    Route::post('/list', [LevelController::class, 'list']);
+    Route::get('/create', [LevelController::class, 'create']);
+    Route::post('/', [LevelController::class, 'store']);
+    Route::get('/{id}', [LevelController::class, 'show']);
+    Route::get('/{id}/edit', [LevelController::class, 'edit']);
+    Route::put('/{id}', [LevelController::class, 'update']);
+    Route::delete('/{id}', [levelController::class, 'destroy']);
+});
+
+// Category Route
+Route::group(['prefix' => 'category'], function() {
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::post('/list', [KategoriController::class, 'list']);
+    Route::get('/create', [KategoriController::class, 'create']);
+    Route::post('/', [KategoriController::class, 'store']);
+    Route::get('/{id}', [KategoriController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriController::class, 'edit']);
+    Route::put('/{id}', [KategoriController::class, 'update']);
+    Route::delete('/{id}', [KategoriController::class, 'destroy']);
+});
+
+// Item Route
+Route::group(['prefix' => 'item'], function() {
+    Route::get('/', [ItemController::class, 'index']);
+    Route::post('/list', [ItemController::class, 'list']);
+    Route::get('/create', [ItemController::class, 'create']);
+    Route::post('/', [ItemController::class, 'store']);
+    Route::get('/{id}', [ItemController::class, 'show']);
+    Route::get('/{id}/edit', [ItemController::class, 'edit']);
+    Route::put('/{id}', [ItemController::class, 'update']);
+    Route::delete('/{id}', [ItemController::class, 'destroy']);
+});
+
+// Stock Route
+Route::group(['prefix' => 'stok'], function() {
+    Route::get('/', [StockController::class, 'index']);
+    Route::post('/list', [StockController::class, 'list']);
+    Route::get('/create', [StockController::class, 'create']);
+    Route::post('/', [StockController::class, 'store']);
+    Route::get('/{id}', [StockController::class, 'show']);
+    Route::get('/{id}/edit', [StockController::class, 'edit']);
+    Route::put('/{id}', [StockController::class, 'update']);
+    Route::delete('/{id}', [StockController::class, 'destroy']);
 });

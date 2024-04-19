@@ -6,7 +6,7 @@
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools"></div>
     </div>
-    <div class="card-body">
+    <div class="card-body">        
         <form method="POST" action="{{ url('user') }}" class="form-horizontal">
             @csrf
             <div class="form-group row">
