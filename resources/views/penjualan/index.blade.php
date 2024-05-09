@@ -5,7 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('detail/create') }}">Tambah</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('penjualan/create') }}">Tambah</a>
             </div>
         </div>
         <div class="card-body">
@@ -24,10 +24,10 @@
                     <div class="form-group row">
                         <label for="" class="col-1 control-label col-form-label">Filter Penjualan:</label>
                         <div class="col-3">
-                            <select class="form-control" id="barang_id" name="barang_id" required>
+                            <select class="form-control" id="pembeli" name="pembeli" required>
                                 <option value="">- Semua -</option>
-                                @foreach ($penjualan as $item)
-                                    <option value="{{ $item->user_id }}">{{ $item->username}}</option>
+                                @foreach ($pembeli as $item)
+                                    <option value="{{ $item->pembeli }}">{{ $item->pembeli}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                     "dataType": "json",
                     "type": "POST",
                     "data": function (d) {
-                        d.penjualan_id = $('#penjualan_id').val();
+                        d.pembeli = $('#pembeli').val();
                     }
                 },
                 columns: [{
@@ -107,7 +107,7 @@
                 ]
             });
 
-            $('#penjualan_id').on('change', function() {
+            $('#pembeli').on('change', function() {
                 dataStok.ajax.reload();
             });
 

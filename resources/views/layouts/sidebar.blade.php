@@ -60,7 +60,7 @@
       </li>
       <li class="nav-item">
         <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu == 
-'sales')? 'active' : '' }} ">
+'penjualan')? 'active' : '' }} ">
           <i class="nav-icon fas fa-cash-register"></i>
           <p>Sales Transaction</p>
         </a>

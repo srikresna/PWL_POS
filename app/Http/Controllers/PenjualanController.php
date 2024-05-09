@@ -23,16 +23,17 @@ class PenjualanController extends Controller
         $activeMenu = 'penjualan';
 
         $penjualan = PenjualanModel::all();
+        $pembeli = PenjualanModel::select('pembeli')->distinct()->get();
 
-        return view('penjualan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penjualan' => $penjualan, 'activeMenu' => $activeMenu]);
+        return view('penjualan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'penjualan' => $penjualan, 'activeMenu' => $activeMenu, 'pembeli' => $pembeli]);
     }
 
     public function list(Request $request)
     {
         $penjualan = PenjualanModel::select('penjualan_id', 'user_id', 'pembeli', 'penjualan_kode', 'penjualan_tanggal')->with('user');
 
-        if ($request->user_id) {
-            $penjualan->where('user_id', $request->user_id);
+        if ($request->pembeli) {
+            $penjualan->where('pembeli', $request->pembeli);
         }
 
         return DataTables::of($penjualan)
